@@ -56,7 +56,7 @@ def predict(x, theta):
 if __name__ == '__main__':
 
     # Read data
-    url = "C:/Users/mrawa/Desktop/University/Machine Learning/Assignment1/house_data.csv"
+    url = "house_data.csv"
     dataset = pandas.read_csv(url,index_col=0)
 
     # Get the X and Y values
