@@ -1,17 +1,18 @@
+
 import numpy
 import pandas
 import matplotlib.pyplot as plt
 
 
 def hypothesis(theta, x):
-    return theta + (theta * x)
+    return theta[0] + (theta[1] * x)
 
 
 def cost_function(x, y, theta):
     m = len(x)  # number of training examples
     sum = 0
     for i in range(m):
-        sum += (hypothesis(theta, x[i]) - y[i]) ** 2
+        sum += numpy.power((hypothesis(theta, x[i]) - y[i]), 2)
     J = (1 / (2 * m)) * sum
     return J
 
@@ -19,10 +20,18 @@ def cost_function(x, y, theta):
 def gradient_descent(x, y, theta, alpha, iterations):
     m = len(y)  # number of training examples
     for i in range(iterations):
+        # Calculate theta 0
         sum = 0
         for j in range(m):
             sum += (hypothesis(theta, x[j]) - y[j])
-        theta = theta - (alpha/m) * sum
+        temp0 = theta[0] - (alpha/m) * sum
+        # Calculate theta 1
+        sum = 0
+        for j in range(m):
+            sum += ((hypothesis(theta, x[j]) - y[j]) * x[j])
+        theta[1] = theta[1] - (alpha / m) * sum
+        theta[0] = temp0
+        # Calculate the cost
         cost = cost_function(x, y, theta)
         if i % 10 == 0:  # just look at cost every ten loops for debugging
             print("theta: ", theta, " cost: ", cost)
@@ -32,7 +41,7 @@ def gradient_descent(x, y, theta, alpha, iterations):
 def predict(x, theta):
     y_pred = []
     for i in range(len(x)):
-        y_pred.append(hypothesis(x[i], theta))
+        y_pred.append(hypothesis(theta, x[i]))
     return y_pred
 
 
@@ -54,14 +63,15 @@ if __name__ == '__main__':
     x_test = x[size:]
     y_test = y[size:]
 
-    theta = 0
+    theta = [0, 0]
 
     print(cost_function(x_train, y_train, theta))
 
-    alpha = 0.0003
+    alpha = 0.0000003
     iterations = 500
 
     theta = gradient_descent(x_train, y_train, theta, alpha, iterations)
+    print(theta)
     y_pred = predict(x_test, theta)
 
     # Plot regression line across data points
