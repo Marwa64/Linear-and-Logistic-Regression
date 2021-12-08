@@ -1,6 +1,5 @@
 import numpy
 import pandas
-from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 
 
@@ -48,7 +47,7 @@ def predict(x, theta):
 if __name__ == '__main__':
 
     # Read data
-    url = "house_data.csv"
+    url = "C:/Users/mrawa/Desktop/University/Machine Learning/Assignment1/house_data.csv"
     dataset = pandas.read_csv(url,index_col=0)
 
     # Get the X and Y values
@@ -84,11 +83,24 @@ if __name__ == '__main__':
     print("-------------------------------------------")
     # calculate errors
     total = 0
+    sumOfSquaredDiff = 0
+    sum = 0
     for i in range(len(y_test)):
         # calculate error
         err = (y_test[i] - y_pred[i]) ** 2
         total += err
+        sum += y_test[i]
     mse = total/len(y_test)
-    print("Mean Squared Error: ", mse)
+    mean = sum / len(y_test)
+
+    for i in range(len(y_test)):
+        temp = (y_test[i] - mean) ** 2
+        sumOfSquaredDiff += temp
+
+    r2 = 1 - (total/sumOfSquaredDiff)
+
+    print("Mean Squared Error = ", mse)
+    print("R2 Coefficient = ", r2)
+    print("Accuracy = ", round((r2 * 100)), "%")
 
     plt.show()
