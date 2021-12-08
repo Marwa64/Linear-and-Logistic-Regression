@@ -1,6 +1,6 @@
-
 import numpy
 import pandas
+from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 
 
@@ -56,7 +56,7 @@ if __name__ == '__main__':
     y = dataset['price'].values
 
     # split dataset into training and testing data
-    size = round(len(dataset) / 3)
+    size = round(len(dataset) * 0.8)
     x_train = x[:size]
     y_train = y[:size]
 
