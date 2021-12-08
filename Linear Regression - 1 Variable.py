@@ -18,6 +18,8 @@ def cost_function(x, y, theta):
 
 def gradient_descent(x, y, theta, alpha, iterations):
     m = len(y)  # number of training examples
+    iter = []
+    costs = []
     for i in range(iterations):
         # Calculate theta 0
         sum = 0
@@ -32,8 +34,15 @@ def gradient_descent(x, y, theta, alpha, iterations):
         theta[0] = temp0
         # Calculate the cost
         cost = cost_function(x, y, theta)
+        costs.append(cost)
+        iter.append(i)
         if i % 10 == 0:  # just look at cost every ten loops for debugging
             print("theta: ", theta, " cost: ", cost)
+    plt.xlabel("Iterations")
+    plt.ylabel("Cost")
+    plt.title("Learning Rates")
+    plt.plot(iter, costs)
+    plt.show()
     return theta
 
 
@@ -66,8 +75,8 @@ if __name__ == '__main__':
 
     print(cost_function(x_train, y_train, theta))
 
-    alpha = 0.0000003
-    iterations = 500
+    alpha = 0.00000001
+    iterations = 300
 
     theta = gradient_descent(x_train, y_train, theta, alpha, iterations)
     print(theta)
