@@ -1,5 +1,6 @@
 import numpy
 import pandas
+from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 
 
@@ -79,4 +80,15 @@ if __name__ == '__main__':
     plt.title("Real vs predicted values")
     plt.scatter(x_test, y_test)
     plt.plot(x_test, y_pred)
+
+    print("-------------------------------------------")
+    # calculate errors
+    total = 0
+    for i in range(len(y_test)):
+        # calculate error
+        err = (y_test[i] - y_pred[i]) ** 2
+        total += err
+    mse = total/len(y_test)
+    print("Mean Squared Error: ", mse)
+
     plt.show()
