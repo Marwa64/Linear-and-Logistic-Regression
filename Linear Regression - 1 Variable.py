@@ -71,12 +71,12 @@ if __name__ == '__main__':
     x_test = x[size:]
     y_test = y[size:]
 
-    theta = [0, 0]
+    theta = [1, 1]
 
     print(cost_function(x_train, y_train, theta))
 
     alpha = 0.00000001
-    iterations = 300
+    iterations = 100
 
     theta = gradient_descent(x_train, y_train, theta, alpha, iterations)
     print(theta)
