@@ -119,3 +119,9 @@ if __name__ == '__main__':
 
     y_ts_predicted = predict(final_test_predicted, m_ts)
     print('Test Accuracy {:.2f}%'.format(100 * accuracy_score(y_ts_predicted.T, y_ts_arr)))
+    
+    plt.plot(costs, color="red")
+    plt.ylabel('Cost')
+    plt.xlabel('Iterations')
+    plt.title('Cost reduction over time')
+    plt.show()
